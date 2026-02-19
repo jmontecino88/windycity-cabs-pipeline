@@ -1,0 +1,8 @@
+requests
+pandas
+pyarrow
+sqlalchemy
+pymysql
+python-dotenv
+tenacity
+cryptography

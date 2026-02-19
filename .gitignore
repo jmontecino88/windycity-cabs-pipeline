@@ -1,0 +1,6 @@
+data/raw/
+data/staging/
+data/state/
+bi_exports/
+.env
+__pycache__/
