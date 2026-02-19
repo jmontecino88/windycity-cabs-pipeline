@@ -12,19 +12,15 @@ Diseñar e implementar un flujo end-to-end de datos desde una API pública (Chic
 
 ## Arquitectura del Pipeline
 
-API (Socrata)
-    ↓
-Raw Layer (JSONL particionado por fecha)
-    ↓
-Staging Layer (Parquet tipado + deduplicado)
-    ↓
-MySQL (stg_trips)
-    ↓
-Marts Analíticos (SQL)
-    ↓
-CSV Exports
-    ↓
-Dashboards (Tableau Public)
+mermaid
+flowchart TD
+    A[Socrata API] --> B[Raw Layer JSONL]
+    B --> C[Staging Layer Parquet]
+    C --> D[MySQL stg_trips]
+    D --> E[Analytical Marts]
+    E --> F[CSV Exports]
+    F --> G[Dashboards Tableau]
+
 
 ## Stack Tecnológico
 
@@ -35,6 +31,11 @@ Dashboards (Tableau Public)
 - Visualización: Tableau Public
 
 ## Cómo ejecutar el proyecto
+Requisitos:
+
+Docker instalado
+
+Python 3.10 o superior
 
 ### 1. Clonar el repositorio
 
@@ -114,27 +115,35 @@ Otras métricas:
 - Revenue share top 3 zones
 - Payment mix %
 
-## Dashboards
+## Dashboards – Imágenes de respaldo (fallback)
+
+"En caso de falla del enlace público, se incluyen imágenes de respaldo."
 
 ### Dashboard 1 — Dirección | Performance Global
-Dataset:
-- daily_kpis
-- executive_kpis
+![Dashboard 1](docs/screenshots/dashboard_1_performance.png)
+Tablas utilizadas:
 
----
+daily_kpis
 
+executive_kpis
 ### Dashboard 2 — Dirección | Riesgo & Mix
-Dataset:
-- executive_kpis
-- payment_mix_daily
-- taxi_daily_kpis
 
+![Dashboard 2](docs/screenshots/dashboard_2_riesgo_mix.png)
+Tablas utilizadas:
+
+taxi_daily_kpis
+
+zone_daily_kpis
+
+payment_mix_daily
+
+executive_kpis
 ---
 
 ### Dashboard 3 — Operación | Eficiencia
 Dataset:
 - hourly_kpis
-- daily_kpis
+
 
 Link público:
 https://public.tableau.com/views/TaxiFleetOperationalEfficiency1/Main
@@ -142,9 +151,16 @@ https://public.tableau.com/views/TaxiFleetOperationalEfficiency1/Main
 ---
 
 ### Dashboard 4 — Operación | Flota & Conductores
-Dataset:
-- taxi_daily_kpis
-- daily_kpis
+![Dashboard 4](docs/screenshots/dashboard_4_flota_conductores.png)
+
+Tablas utilizadas:
+
+taxi_daily_kpis
+
+
+
+
+
 
 ## Decisiones Técnicas
 
